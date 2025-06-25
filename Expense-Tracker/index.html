@@ -201,8 +201,8 @@
             border-bottom: 0.5px solid gray;
             display: flex;
             align-items: center;
+            column-gap: 5px;
             font-size: 14px;
-            padding-left: 5px;
         }
 
         .submitbuttoncont {
@@ -275,31 +275,17 @@
         }
 
         input[type="radio"] {
-            display: none;
+            transform: scale(1.25);
+            margin-left: 5px;
+            cursor: pointer;
         }
 
-        .customradio {
-            height: 20px;
-            width: 20px;
-            border: 2px solid #007bff;
-            display: inline-block;
-            border-radius: 50%;
-            /* 👈 makes it a perfect circle */
-            position: relative;
-            margin-right: 10px;
-            background-color: white;
+        .greencolortext {
+            color: rgb(0, 151, 0);
         }
 
-        .radiowrap input[type="radio"]:checked+.customradio::after {
-            content: "";
-            position: absolute;
-            top: 4px;
-            left: 4px;
-            height: 8px;
-            width: 8px;
-            background-color: #007bff;
-            border-radius: 50%;
-            /* 👈 inner dot is also circular */
+        .redcolortext {
+            color: rgb(255, 77, 77);
         }
     </style>
 </head>
@@ -309,73 +295,135 @@
         <div class="headingcont">EXPENSE TRACKER</div>
         <div class="balancecont">
             <div class="balancetext">YOUR BALANCE</div>
-            <div class="balanceamount">$1250</div>
+            <div class="balanceamount" id="balanceamount">$0</div>
         </div>
         <div class="incomeexpensecont">
             <div class="incomecont">
                 <div class="incometextcont">INCOME</div>
-                <div class="incomeamountcont">$2000</div>
+                <div class="incomeamountcont" id="incomeamountcont">$0</div>
             </div>
             <div class="expensecont">
                 <div class="expensetextcont">EXPENSE</div>
-                <div class="expenseamountcont">$750</div>
+                <div class="expenseamountcont" id="expenseamountcont">$0</div>
             </div>
         </div>
 
         <div class="transactioncont">
             <div class="transactionheadingcont">Add New Transaction</div>
             <div class="transactionnamecont">
-                <input type="text" placeholder="Text" autofocus>
+                <input type="text" placeholder="Text" id="transactionnameinput" autofocus>
             </div>
             <div class="amountinputcont">
-                <input type="text" placeholder="Enter Amount" autofocus>
+                <input type="text" placeholder="Enter Amount" id="transactionamountinput" autofocus>
             </div>
             <div class="radioinputcont">
 
-                <label class="radiowrap">
-                    <input type="radio" name="radiobtn">
-                    <span class="customradio"></span>
-                    Income
-                </label>
+                <input type="radio" name="radioinput" value="Income" id="Incomeradio" checked="checked">
+                <label for="Incomeradio">Income</label>
 
-                <label class="radiowrap">
-                    <input type="radio" name="radiobtn">
-                    <span class="customradio"></span>
-                    Expense
-                </label>
+                <input type="radio" name="radioinput" value="Expense" id="Expenseradio">
+                <label for="Expenseradio">Expense</label>
 
             </div>
             <div class="submitbuttoncont">
-                <button>Add Transaction</button>
+                <button id="submitbtn">Add Transaction</button>
             </div>
         </div>
 
         <div class="historycont">
             <div class="historyheadingcont">History</div>
-            <div class="historylistcont">
-                <div class="historyitem" id="historyitem1">
-                    <div class="historynamecont">Test History1</div>
-                    <div class="historyamountcont">+$50</div>
-                </div>
+            <div class="historylistcont" id="historylistcont">
 
-                <div class="historyitem" id="historyitem2">
-                    <div class="historynamecont">Test History2</div>
-                    <div class="historyamountcont">+$780</div>
-                </div>
-
-                <div class="historyitem" id="historyitem3">
-                    <div class="historynamecont">Test History3</div>
-                    <div class="historyamountcont">-$204</div>
-                </div>
-
-                <div class="historyitem" id="historyitem4">
-                    <div class="historynamecont">Test History4</div>
-                    <div class="historyamountcont">+$569</div>
-                </div>
             </div>
 
         </div>
     </div>
+
+
+    <script>
+
+        const submitbtn = document.getElementById('submitbtn');
+
+        function makeHistory(transactiontext, transactionamt, transactiontype) {
+            const newHistory = document.createElement('div');
+            newHistory.className = 'historyitem';
+
+            const Historyname = document.createElement('div');
+            Historyname.textContent = transactiontext;
+            Historyname.className = 'historynamecont';
+
+            const Historyamt = document.createElement('div');
+            Historyamt.className = 'historyamountcont';
+
+            if (transactiontype == 'Income') {
+                Historyamt.classList.add('greencolortext');
+                Historyamt.textContent = "+$" + transactionamt;
+            }
+
+            else {
+                Historyamt.classList.add('redcolortext');
+                Historyamt.textContent = "-$" + transactionamt;
+            }
+
+            newHistory.appendChild(Historyname);
+            newHistory.appendChild(Historyamt);
+
+            const historylistcont = document.getElementById('historylistcont');
+            historylistcont.prepend(newHistory);   // Adds newHistory at the TOP
+        }
+
+
+        submitbtn.addEventListener('click', () => {
+            const selectedradio = document.querySelector('input[name="radioinput"]:checked');
+
+            if (selectedradio.value == 'Income') {
+                const transactionamountinput = document.getElementById('transactionamountinput');
+                if (isNaN(transactionamountinput.value)) {
+                    alert("Entered amount should be a number!");
+                }
+                const inputamount = parseInt(transactionamountinput.value);
+
+                const incomeamountcont = document.getElementById('incomeamountcont');
+                const incomeamountcontvalue = parseInt((incomeamountcont.textContent).replace("$", ""));
+
+                const balanceamount = document.getElementById('balanceamount');
+                const balanceamountvalue = parseInt((balanceamount.textContent).replace("$", ""));
+
+                incomeamountcont.textContent = "$" + String(incomeamountcontvalue + inputamount);
+                balanceamount.textContent = "$" + String(balanceamountvalue + inputamount);
+
+                const transactionnameinput = document.getElementById('transactionnameinput')
+                makeHistory(transactionnameinput.value, transactionamountinput.value, 'Income');
+
+                transactionnameinput.value = "";
+                transactionamountinput.value = "";
+
+            }
+
+            else {
+                const transactionamountinput = document.getElementById('transactionamountinput');
+                if (isNaN(transactionamountinput.value)) {
+                    alert("Entered amount should be a number!");
+                }
+                const inputamount = parseInt(transactionamountinput.value);
+
+                const expenseamountcont = document.getElementById('expenseamountcont');
+                const expenseamountcontvalue = parseInt((expenseamountcont.textContent).replace("$", ""));
+
+                const balanceamount = document.getElementById('balanceamount');
+                const balanceamountvalue = parseInt((balanceamount.textContent).replace("$", ""));
+
+                expenseamountcont.textContent = "$" + String(expenseamountcontvalue + inputamount);
+                balanceamount.textContent = "$" + String(balanceamountvalue - inputamount);
+
+                makeHistory(transactionnameinput.value, transactionamountinput.value, 'Expense');
+
+                transactionnameinput.value = "";
+                transactionamountinput.value = "";
+            }
+        })
+
+    </script>
 
 </body>
 
