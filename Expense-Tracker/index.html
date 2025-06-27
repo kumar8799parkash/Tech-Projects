@@ -35,7 +35,6 @@
         .headingcont {
             height: 50px;
             width: 100%;
-            border-bottom: 0.5px solid gray;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -81,21 +80,18 @@
         .incomeexpensecont {
             height: 70px;
             width: 80%;
-            border: 0.5px solid gray;
             display: flex;
         }
 
         .incomecont {
             height: 100%;
             width: 50%;
-            border: 0.5px solid gray;
         }
 
 
         .incometextcont {
             height: 40%;
             width: 100%;
-            border-bottom: 0.5px solid gray;
             display: flex;
             justify-content: center;
             align-items: last baseline;
@@ -118,13 +114,11 @@
         .expensecont {
             height: 100%;
             width: 50%;
-            border: 0.5px solid gray;
         }
 
         .expensetextcont {
             height: 40%;
             width: 100%;
-            border-bottom: 0.5px solid gray;
             display: flex;
             justify-content: center;
             align-items: last baseline;
@@ -147,13 +141,11 @@
         .transactioncont {
             height: 150px;
             width: 80%;
-            border: 0.5px solid gray;
         }
 
         .transactionheadingcont {
             height: 20%;
             width: 100%;
-            border-bottom: 0.5px solid gray;
             display: flex;
             align-items: center;
             font-weight: 600;
@@ -198,7 +190,6 @@
         .radioinputcont {
             height: 20%;
             width: 100%;
-            border-bottom: 0.5px solid gray;
             display: flex;
             align-items: center;
             column-gap: 5px;
@@ -208,7 +199,6 @@
         .submitbuttoncont {
             height: 20%;
             width: 100%;
-            border-bottom: 0.5px solid gray;
         }
 
         .submitbuttoncont button {
@@ -226,13 +216,11 @@
         .historycont {
             height: 120px;
             width: 80%;
-            border: 0.5px solid gray;
         }
 
         .historyheadingcont {
             height: 30px;
             width: 100%;
-            border: 0.5px solid gray;
             display: flex;
             align-items: center;
             font-weight: 600;
@@ -243,7 +231,6 @@
         .historylistcont {
             height: 90px;
             width: 100%;
-            border: 2px solid red;
             display: flex;
             flex-direction: column;
             row-gap: 3px;
@@ -343,6 +330,7 @@
     <script>
 
         const submitbtn = document.getElementById('submitbtn');
+        const transactions = [];
 
         function makeHistory(transactiontext, transactionamt, transactiontype) {
             const newHistory = document.createElement('div');
@@ -370,57 +358,84 @@
 
             const historylistcont = document.getElementById('historylistcont');
             historylistcont.prepend(newHistory);   // Adds newHistory at the TOP
+
         }
 
+        function updateTotals(transactionamt, transactiontype) {
+            const amount = parseInt(transactionamt);
+
+            const balanceamountcont = document.getElementById("balanceamount");
+            const incomeamountcont = document.getElementById("incomeamountcont");
+            const expenseamountcont = document.getElementById("expenseamountcont");
+
+            const balanceamount = parseInt(document.getElementById("balanceamount").textContent.trim().replace('$', ''));
+            const incomeamount = parseInt(document.getElementById("incomeamountcont").textContent.trim().replace('$', ''));
+            const expenseamount = parseInt(document.getElementById("expenseamountcont").textContent.trim().replace('$', ''));
+
+            if (transactiontype == 'Income') {
+                balanceamountcont.textContent = "$" + String(balanceamount + amount);
+                incomeamountcont.textContent = "$" + String(incomeamount + amount);
+            }
+            else {
+                balanceamountcont.textContent = "$" + String(balanceamount - amount);
+                expenseamountcont.textContent = "$" + String(expenseamount + amount);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded' , ()=>{
+            const storedTransactions = localStorage.getItem('transactions');  //localStorage.getItem('transactions') returns a string
+            if(storedTransactions){                 // if nothing is added then storedTransactions = null
+                transactionsArray = JSON.parse(storedTransactions)      // Converting string to an array
+                transactionsArray.forEach(tran => {
+                    transactions.push(tran);                       // update the global transaction array
+                    updateTotals(tran.amount , tran.type);
+                    makeHistory(tran.name , tran.amount , tran.type);
+                });
+            }
+        })
 
         submitbtn.addEventListener('click', () => {
+
+            const transactionnameinput = document.getElementById('transactionnameinput');
+            const transactionamountinput = document.getElementById('transactionamountinput');
+
+            const inputnametext = transactionnameinput.value;  // 'Book purchase'
+            const inputamounttext = transactionamountinput.value; // '50'
+            if (isNaN(inputamounttext) || inputamounttext.trim() === '' || inputnametext === '') {
+                alert("Entered amount should be a number(and necessary) and transaction name is necessary");
+                return;
+            }
+
             const selectedradio = document.querySelector('input[name="radioinput"]:checked');
+            /*
+            It returns the DOM element itself — not directly the id, name, or value.
+            console.log(selectedRadio);             // logs the whole <input> element
+            console.log(selectedRadio.value);       // logs "Option1" ✅
+            console.log(selectedRadio.id);          // logs "opt1"
+            console.log(selectedRadio.name);        // logs "radioinput"
+            */
 
-            if (selectedradio.value == 'Income') {
-                const transactionamountinput = document.getElementById('transactionamountinput');
-                if (isNaN(transactionamountinput.value)) {
-                    alert("Entered amount should be a number!");
-                }
-                const inputamount = parseInt(transactionamountinput.value);
+            transactions.push({                   // adding new element in the transactions array
+                name: inputnametext,
+                amount: parseInt(inputamounttext),
+                type: selectedradio.value
+            })
 
-                const incomeamountcont = document.getElementById('incomeamountcont');
-                const incomeamountcontvalue = parseInt((incomeamountcont.textContent).replace("$", ""));
+            localStorage.setItem('transactions', JSON.stringify(transactions));    // we are just updating the value
 
-                const balanceamount = document.getElementById('balanceamount');
-                const balanceamountvalue = parseInt((balanceamount.textContent).replace("$", ""));
+            /* transactions is actually a single element(key) we are just updating its value every time we do:
+                        localStorage.setItem('transactions', JSON.stringify(transactions));  
+            
+               means overall at local storage only one key value pair is stored(key='transactions', value= array) 
+            */
 
-                incomeamountcont.textContent = "$" + String(incomeamountcontvalue + inputamount);
-                balanceamount.textContent = "$" + String(balanceamountvalue + inputamount);
 
-                const transactionnameinput = document.getElementById('transactionnameinput')
-                makeHistory(transactionnameinput.value, transactionamountinput.value, 'Income');
+            updateTotals(inputamounttext, selectedradio.value);
+            makeHistory(inputnametext, inputamounttext, selectedradio.value);
 
-                transactionnameinput.value = "";
-                transactionamountinput.value = "";
+            transactionnameinput.value = "";
+            transactionamountinput.value = "";
 
-            }
-
-            else {
-                const transactionamountinput = document.getElementById('transactionamountinput');
-                if (isNaN(transactionamountinput.value)) {
-                    alert("Entered amount should be a number!");
-                }
-                const inputamount = parseInt(transactionamountinput.value);
-
-                const expenseamountcont = document.getElementById('expenseamountcont');
-                const expenseamountcontvalue = parseInt((expenseamountcont.textContent).replace("$", ""));
-
-                const balanceamount = document.getElementById('balanceamount');
-                const balanceamountvalue = parseInt((balanceamount.textContent).replace("$", ""));
-
-                expenseamountcont.textContent = "$" + String(expenseamountcontvalue + inputamount);
-                balanceamount.textContent = "$" + String(balanceamountvalue - inputamount);
-
-                makeHistory(transactionnameinput.value, transactionamountinput.value, 'Expense');
-
-                transactionnameinput.value = "";
-                transactionamountinput.value = "";
-            }
         })
 
     </script>
