@@ -4,14 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify-Your favourite music site</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav>
         <ul>
-            <li class="brand" ><img src="spotifyLogo.png" alt="Spotify-Logo"></li>
+            <li class="brand" ><img src="./images/spotify-logo1.png" alt="Spotify-Logo">Spotify</li>
             <li>Home</li>
             <li>About Us</li>
         </ul>
     </nav>
+
+
+    <div class="container">
+        <h1>Best of NCS - No Copyright Sounds</h1>
+        <div class="songlist"></div>
+        <div class="songbanner"></div>
+    </div>
+
+    <div class="bottom">
+        <input type="range" name="range" id="myProgressBar" min="0" max="100">
+    <!--   What is <input type="range">?
+            The <input type="range"> creates a slider (a graphical control element) that lets users select a numeric value by dragging a handle.
+            
+            🧩 Attributes Explained
+             min:
+            The smallest value the slider can select.
+            Default is 0 (if not specified).
+
+            2. max:
+            The largest value the slider can select.
+            Default is 100 (if not specified).
+
+            3. value (optional):
+            Sets the initial value of the slider.
+            Default is the midpoint of min and max if not specified.
+
+            4. step (optional):
+            Controls the increment between slider values.
+            Default is 1.
+            -->
+
+        <div class="icons">
+            <!---svgrepo icons-->
+            <img src="./images/previousPlay.svg" alt="">
+            <img src="./images/playButton.svg" alt="">
+            <img src="./images/forwardPlay.svg" alt="">
+        </div>    
+    </div>
+
 </body>
 </html>
