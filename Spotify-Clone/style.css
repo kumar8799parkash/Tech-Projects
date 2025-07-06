@@ -23,8 +23,9 @@ nav ul {
     color: white;
 }
 
-nav ul li{
-    padding: 0 12px;   /*shorthand for padding: <vertical> <horizontal>;*/
+nav ul li {
+    padding: 0 12px;
+    /*shorthand for padding: <vertical> <horizontal>;*/
     cursor: pointer;
 }
 
@@ -40,13 +41,23 @@ nav ul li{
     margin-right: 5px;
 }
 
-.container{
-    min-height: 75vh;
+.container {
+    min-height: 65vh;
+    width: 70%;
+    background-color: black;
+    color: white;
+    font-family: "Varela Round", sans-serif;
+    display: flex;
+    margin: 23px auto;
+    border-radius: 12px;
+    padding: 34px;
+    background-image: url(./images/bg.jpg);
+    background-size: cover;
 }
 
-.bottom{
+.bottom {
     position: sticky;
-    height: 100px;
+    height: 80px;
     background-color: black;
     display: flex;
     justify-content: center;
@@ -55,12 +66,12 @@ nav ul li{
     color: white;
 }
 
-#myProgressBar{
+#myProgressBar {
     width: 90vw;
     cursor: pointer;
 }
 
-.icons{
+.icons {
     margin-top: 10px;
     display: flex;
     justify-content: center;
@@ -68,7 +79,49 @@ nav ul li{
     column-gap: 10px;
 }
 
-.icons img{
+.icons img {
     width: 45px;
     cursor: pointer;
+}
+
+.songItem {
+    height: 35px;
+    width: 70%;
+    background-color: white;
+    color: black;
+    margin: 12px 0;
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.timestamp {
+    margin-right: 15px;
+}
+
+.songitemplaylogo {
+    height: 25px;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+
+.songphoto {
+    height: 30px;
+    margin: 0 15px;
+    border-radius: 5px;
+}
+
+.songinfo {
+    height: 20px;
+    position: absolute;
+    left: 80px;
+}
+
+.songinfo img {
+    height: 20px;
+
 }
