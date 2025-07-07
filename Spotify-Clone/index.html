@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify-Your favourite music site</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <nav>
         <ul>
-            <li class="brand" ><img src="./images/spotify-logo1.png" alt="Spotify-Logo">Spotify</li>
+            <li class="brand"><img src="./images/spotify-logo1.png" alt="Spotify-Logo">Spotify</li>
             <li>Home</li>
             <li>About Us</li>
         </ul>
@@ -23,52 +25,60 @@
                 <div class="songItem">
                     <img class="songphoto" src="./images/1.jpg" alt="10">
                     <span>Let me Love You</span>
-                    <span class="songlistplay">     <span class="timestamp">05:30</span>  <img data-audio="./songs/1.mp3"  class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt="">  </span>
+                    <span class="songlistplay"> <span class="timestamp">05:30</span> <img data-audio="./songs/1.mp3"
+                            class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt=""> </span>
                 </div>
                 <div class="songItem">
                     <img class="songphoto" src="./images/2.jpg" alt="10">
                     <span>DEAF KEV - Invincible</span>
-                    <span class="songlistplay">     <span class="timestamp">03:34</span><img data-audio="./songs/2.mp3" class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt="">  </span>
+                    <span class="songlistplay"> <span class="timestamp">03:34</span><img data-audio="./songs/2.mp3"
+                            class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt=""> </span>
                 </div>
                 <div class="songItem">
                     <img class="songphoto" src="./images/3.jpg" alt="10">
                     <span>Elektronomia - Sky High</span>
-                    <span class="songlistplay">     <span class="timestamp">03:45</span><img data-audio="./songs/3.mp3" class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt="">  </span>
+                    <span class="songlistplay"> <span class="timestamp">03:45</span><img data-audio="./songs/3.mp3"
+                            class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt=""> </span>
                 </div>
                 <div class="songItem">
                     <img class="songphoto" src="./images/4.jpg" alt="10">
                     <span>Elektronomia - Sky High</span>
-                    <span class="songlistplay">     <span class="timestamp">04:10</span><img data-audio="./songs/4.mp3" class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt="">  </span>
+                    <span class="songlistplay"> <span class="timestamp">04:10</span><img data-audio="./songs/4.mp3"
+                            class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt=""> </span>
                 </div>
                 <div class="songItem">
                     <img class="songphoto" src="./images/5.jpg" alt="10">
                     <span>Elektronomia - Sky High</span>
-                    <span class="songlistplay">     <span class="timestamp">02:55</span><img data-audio="./songs/5.mp3" class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt="">  </span>
+                    <span class="songlistplay"> <span class="timestamp">02:55</span><img data-audio="./songs/5.mp3"
+                            class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt=""> </span>
                 </div>
                 <div class="songItem">
                     <img class="songphoto" src="./images/6.jpg" alt="10">
                     <span>Cartoon - On & On</span>
-                    <span class="songlistplay">     <span class="timestamp">04:20</span><img data-audio="./songs/6.mp3" class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt="">  </span>
+                    <span class="songlistplay"> <span class="timestamp">04:20</span><img data-audio="./songs/6.mp3"
+                            class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt=""> </span>
                 </div>
                 <div class="songItem">
                     <img class="songphoto" src="./images/7.jpg" alt="10">
                     <span>Disfigure - Blank</span>
-                    <span class="songlistplay">     <span class="timestamp">03:30</span><img data-audio="./songs/7.mp3" class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt="">  </span>
+                    <span class="songlistplay"> <span class="timestamp">03:30</span><img data-audio="./songs/7.mp3"
+                            class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt=""> </span>
                 </div>
                 <div class="songItem">
                     <img class="songphoto" src="./images/9.jpg" alt="10">
                     <span>Syn Cole - Feel Good</span>
-                    <span class="songlistplay">     <span class="timestamp">03:15</span><img data-audio="./songs/8.mp3" class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt="">  </span>
+                    <span class="songlistplay"> <span class="timestamp">03:15</span><img data-audio="./songs/8.mp3"
+                            class="songitemplaylogo songplaybutton" src="./images/play-button-black.svg" alt=""> </span>
                 </div>
             </div>
-            
+
         </div>
         <div class="songbanner"></div>
     </div>
 
     <div class="bottom">
-        <input type="range" name="range" id="myProgressBar" min="0" max="100">
-    <!--   What is <input type="range">?
+        <input type="range" step="0.001" value="0" name="range" id="myProgressBar" min="0" max="100">
+        <!--   What is <input type="range">?
             The <input type="range"> creates a slider (a graphical control element) that lets users select a numeric value by dragging a handle.
             
             🧩 Attributes Explained
@@ -94,8 +104,8 @@
             <img src="./images/previousPlay.svg" alt="">
             <img src="./images/playButton.svg" alt="">
             <img src="./images/forwardPlay.svg" alt="">
-        </div>  
-        
+        </div>
+
         <div class="songinfo">
             <img src="playing.gif" alt=""> let me love you
         </div>
@@ -103,17 +113,45 @@
 
     <script>
         const songplaybutton = document.getElementsByClassName('songplaybutton');
+        const myProgressBar = document.getElementById('myProgressBar');
+        
+        let currentAudio = null;
+
         songplaybuttonArray = Array.from(songplaybutton);
 
         songplaybuttonArray.forEach(element => {
-            element.addEventListener('click' , ()=>{
-                const audioEle = element.getAttribute('data-audio');
-                const sound = new Audio(audioEle);
-                sound.play();
+            element.addEventListener('click', () => {
+                const audioSrc = element.getAttribute('data-audio');
+
+                if (currentAudio) {
+                    if (currentAudio.src.includes(audioSrc)) {
+                        currentAudio.pause();
+                        currentAudio = null;
+                        currentAudio = new Audio(audioSrc);
+                        currentAudio.play();
+                    }
+                    else {
+                        currentAudio.pause();
+                        currentAudio = null;
+                        currentAudio = new Audio(audioSrc);
+                        currentAudio.play();
+                    }
+                }
+                else {
+                    currentAudio = new Audio(audioSrc);
+                    currentAudio.play();
+
+                }
+                
+                currentAudio.addEventListener('timeupdate', () => {
+                    const progress = (currentAudio.currentTime / currentAudio.duration) * 100;
+                    myProgressBar.value = progress;
+                })
             })
         });
 
     </script>
 
 </body>
+
 </html>
