@@ -112,43 +112,49 @@
     </div>
 
     <script>
-        const songplaybutton = document.getElementsByClassName('songplaybutton');
-        const myProgressBar = document.getElementById('myProgressBar');
-        
-        let currentAudio = null;
+        const songitemplaylogo = document.getElementsByClassName('songitemplaylogo');
+        let currentSrc = null;           //this  stores the source code of the current song
+        let currentSound = null;           //this  stores the sound of the current song
+        let currentButton = null;
 
-        songplaybuttonArray = Array.from(songplaybutton);
+        const arr = Array.from(songitemplaylogo);
+        arr.forEach((ele) => {
+            ele.addEventListener('click', () => {
+                const audioSrc = ele.getAttribute('data-audio');
 
-        songplaybuttonArray.forEach(element => {
-            element.addEventListener('click', () => {
-                const audioSrc = element.getAttribute('data-audio');
-
-                if (currentAudio) {
-                    if (currentAudio.src.includes(audioSrc)) {
-                        currentAudio.pause();
-                        currentAudio = null;
-                        currentAudio = new Audio(audioSrc);
-                        currentAudio.play();
-                    }
-                    else {
-                        currentAudio.pause();
-                        currentAudio = null;
-                        currentAudio = new Audio(audioSrc);
-                        currentAudio.play();
-                    }
+                if (currentSrc == null) {
+                    currentSrc = audioSrc;
+                    currentSound = new Audio(currentSrc);
+                    currentSound.play();
+                    currentButton = ele;   // currentButton = ele = <img class="songitemplaylogo" src="./images/play-button.svg" data-audio="./songs/1.mp3">
+                    // currentButton saves a reference of the previous button clicked/played
+                    ele.src = "./images/pause-button-black.svg";
                 }
+
                 else {
-                    currentAudio = new Audio(audioSrc);
-                    currentAudio.play();
-
+                    if (currentSrc === audioSrc) {
+                        currentSound.pause();
+                        currentSound=null;
+                        currentSrc = null;
+                        ele.src = "./images/play-button-black.svg";
+                        currentButton = null;
+                    }
+                    else{
+                        currentSound.pause();
+                        if(currentButton){
+                            currentButton.src = "./images/play-button-black.svg";
+                        }
+                        currentSrc = audioSrc;  
+                        currentSound = new Audio(currentSrc);
+                        currentButton = ele;
+                        currentSound.play();
+                        ele.src = "./images/pause-button-black.svg";
+                    }
                 }
-                
-                currentAudio.addEventListener('timeupdate', () => {
-                    const progress = (currentAudio.currentTime / currentAudio.duration) * 100;
-                    myProgressBar.value = progress;
-                })
+
             })
-        });
+        })
+
 
     </script>
 
