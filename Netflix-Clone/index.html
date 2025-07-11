@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix-Clone</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .main {
+            background-image: url("assets/images/bg\ \(1\).jpg");
+            background-position: center center;   /* first center = horizontal center , second center = vertical center*/
+            background-repeat: no-repeat;
+            background-size: max(1650px , 100vw);     /*1000px or 100vw mai se jo bhe bada hoga vo ho jayega bg-size*/
+            height: 80vh;
+            position: relative;
+        }
+
+        .main .box {
+            height: 80vh;
+            /*This box has same dimensions as bg image, so it covers the whole image*/
+            width: 100%;
+            opacity: 0.44;
+            background-color: black;
+            /*We have made its background-color as black and opacity as 0.44 so that it reduces the brightness and opacity of the bg image(we have not changed the backgound image's opacity)*/
+            position: absolute;
+            top: 0px;
+        }
+
+        nav{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 80vw;                    /*max-width means ki width 80% of the screen-width rahegey hamesha*/
+            margin: auto;                       /* means left or right se equal margins ho jayege means centre ho jayega nav*/
+            height: 60px;
+        }
+
+        nav img{
+            width: 120px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <nav>
+            <div><img src="assets/images/logo.svg" alt=""></div>
+            <div>
+                <button>English</button>
+                <button>Sign In</button>
+            </div>
+        </nav>
+        <div class="box"></div>
+    </div>
+</body>
+
+</html>
